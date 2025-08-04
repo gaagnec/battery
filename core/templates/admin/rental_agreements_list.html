@@ -1,4 +1,5 @@
 {% extends "admin/base_site.html" %}
+{% load custom_filters %}
 
 {% block content %}
 <h1>{{ title }}</h1>
@@ -16,11 +17,51 @@
 <table class="adminlist table table-striped">
     <thead>
         <tr>
-            <th>Клиент</th>
-            <th>Начало аренды</th>
-            <th>Конец аренды</th>
-            <th>Дней аренды</th>
-            <th>Статус</th>
+            <th>
+                {% if order == 'client_name' and not order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=-client_name">Клиент ▼</a>
+                {% elif order == 'client_name' and order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=client_name">Клиент ▲</a>
+                {% else %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=client_name">Клиент</a>
+                {% endif %}
+            </th>
+            <th>
+                {% if order == 'start_date' and not order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=-start_date">Начало аренды ▼</a>
+                {% elif order == 'start_date' and order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=start_date">Начало аренды ▲</a>
+                {% else %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=start_date">Начало аренды</a>
+                {% endif %}
+            </th>
+            <th>
+                {% if order == 'end_date' and not order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=-end_date">Конец аренды ▼</a>
+                {% elif order == 'end_date' and order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=end_date">Конец аренды ▲</a>
+                {% else %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=end_date">Конец аренды</a>
+                {% endif %}
+            </th>
+            <th>
+                {% if order == 'days' and not order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=-days">Дней аренды ▼</a>
+                {% elif order == 'days' and order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=days">Дней аренды ▲</a>
+                {% else %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=days">Дней аренды</a>
+                {% endif %}
+            </th>
+            <th>
+                {% if order == 'status' and not order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=-status">Статус ▼</a>
+                {% elif order == 'status' and order_param|startswith:'-' %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=status">Статус ▲</a>
+                {% else %}
+                    <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=status">Статус</a>
+                {% endif %}
+            </th>
             <th>Действия</th>
         </tr>
     </thead>
