@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Список батарей</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Ёмкость</th>
+            <th>Статус</th>
+            <!-- добавь нужные поля -->
+        </tr>
+    </thead>
+    <tbody>
+    {% for battery in batteries %}
+        <tr>
+            <td>{{ battery.id }}</td>
+            <td>{{ battery.serial_number }}</td>
+            <td>{{ battery.type.name }}</td>
+            <td>{{ battery.status }}</td>
+            <td>{{ battery.note }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="4">Батарей нет</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

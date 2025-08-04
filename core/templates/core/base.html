@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}BatteryRental Admin{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { padding: 8px; border: 1px solid #ccc; text-align: left; }
+    </style>
+</head>
+<body>
+    <nav>
+     <a href="{% url 'admin:index' %}">Главная</a>
+
+        <a href="{% url 'clients_list' %}">Список клиентов</a>
+            <a href="{% url 'battery_list' %}">Батареи</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>

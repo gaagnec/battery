@@ -1,0 +1,44 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="get" style="margin-bottom: 1em;">
+    <select name="status">
+        <option value="">Все статусы</option>
+        <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Активен</option>
+        <option value="closed" {% if status_filter == 'closed' %}selected{% endif %}>Закрыт</option>
+        <option value="cancelled" {% if status_filter == 'cancelled' %}selected{% endif %}>Отменён</option>
+    </select>
+    <button type="submit" class="default">Фильтровать</button>
+</form>
+
+<table class="adminlist table table-striped">
+    <thead>
+        <tr>
+            <th>Клиент</th>
+            <th>Начало аренды</th>
+            <th>Конец аренды</th>
+            <th>Дней аренды</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for agreement in agreements %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+            <td>{{ agreement.client_name }}</td>
+            <td>{{ agreement.start_date }}</td>
+            <td>{% if agreement.end_date %}{{ agreement.end_date }}{% else %}&mdash;{% endif %}</td>
+          <td>{{ agreement.days }}</td>
+
+            <td>{{ agreement.status }}</td>
+           </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">Договоры не найдены</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
