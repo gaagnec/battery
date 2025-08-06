@@ -38,6 +38,27 @@ class CustomAdminSite(admin.AdminSite):
             path('batteries/', self.admin_view(self.battery_list), name='battery_list'),
             path('rentalagreements/', self.admin_view(self.rental_agreement_list), name='rental_agreement_list'),
         ]
+    def clients3_list(self, request):
+        from django.db.models import Sum, Count
+        from .models import Client, Payment
+
+        # Query clients and annotate with payment information
+        clients = Client.objects.annotate(
+            total_payments=Sum('payment__amount'),
+            payment_count=Count('payment')
+        ).values('id', 'name', 'phone', 'created_at', 'total_payments', 'payment_count')
+
+        # Format the date and prepare context
+        for client in clients:
+            client['created_at'] = client['created_at'].strftime('%d/%m/%Y')
+
+        context = dict(
+            self.each_context(request),
+            title="Клиенты3",
+            clients=clients,
+        )
+        return render(request, 'admin/clients3_list.html', context)
+
         return custom_urls + urls
 
     def battery_list(self, request):

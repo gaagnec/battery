@@ -3,6 +3,7 @@ from django.urls import path
 from django.template.response import TemplateResponse
 from django.core.paginator import Paginator
 from datetime import date
+from django.db.models import Sum, Count
 
 from .models import (
     Client, BatteryType, Battery,
@@ -20,6 +21,7 @@ class CustomAdminSite(admin.AdminSite):
         custom_urls = [
             path("batteries/", self.admin_view(self.battery_view), name="battery_list"),
             path("rentalagreements/", self.admin_view(self.rental_agreements_view), name="rental_agreement_list"),
+            path("clients3/", self.admin_view(self.clients3_list), name="clients3_list"),
         ]
         return custom_urls + urls
 
@@ -31,6 +33,25 @@ class CustomAdminSite(admin.AdminSite):
             batteries=batteries,
         )
         return TemplateResponse(request, "admin/batteries_list.html", context)
+
+    def clients3_list(self, request):
+        # Query clients and annotate with payment information
+        clients = Client.objects.annotate(
+            total_payments=Sum('payment__amount'),
+            payment_count=Count('payment')
+        ).values('id', 'name', 'phone', 'created_at', 'total_payments', 'payment_count')
+
+        # Format the date and prepare context
+        for client in clients:
+            if client['created_at']:
+                client['created_at'] = client['created_at'].strftime('%d/%m/%Y')
+
+        context = dict(
+            self.each_context(request),
+            title="Клиенты3",
+            clients=clients,
+        )
+        return TemplateResponse(request, "admin/clients3_list.html", context)
 
     def rental_agreements_view(self, request):
         agreements = RentalAgreement.objects.select_related("client").all()
