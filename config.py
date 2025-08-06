@@ -1,0 +1,2 @@
+SUPABASE_URL = "https://yolfklentkyczxkwenis.supabase.co"
+SUPABASE_SERVICE_ROLE_SECRET = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvbGZrbGVudGt5Y3p4a3dlbmlzIiwicm9zZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1Mjc5MDU3MiwiZXhwIjoyMDY4MzY2NTcyfQ.JgEm_pM3TGIzDP8U9wtTL3fM95M-GYI8d4ZaXEvg1lo"
