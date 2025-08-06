@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+{% load custom_filters %}
+
+{% block content %}
+<h1>Клиенты2</h1>
+
+<table class="adminlist table table-striped">
+    <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Дата создания</th>
+            <th>Сумма платежей (количество)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for client in clients %}
+        <tr class="{% cycle 'row1' 'row2' %}">
+            <td>{{ client.name }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.created_at_formatted }}</td>
+            <td>{{ client.total_payments }} ({{ client.payment_count }})</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">Клиенты не найдены</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

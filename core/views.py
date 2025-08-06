@@ -10,7 +10,6 @@ def index(request):
 def clients_list(request):
     clients = Client.objects.all().order_by('created_at')
     return render(request, 'core/clients_list.html', {'clients': clients})
-    return render(request, 'core/index.html')
 
 @staff_member_required  # гарантирует доступ только админам и интеграцию с админкой
 def battery_list(request):
