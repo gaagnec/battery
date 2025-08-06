@@ -17,13 +17,9 @@ Including another URLconf
 from core.custom_admin import custom_admin_site
 from django.urls import path, include
 from core import views as core_views
-from core.admin import admin_site
 
 urlpatterns = [
-    path('admin_tools/', include('admin_tools.urls')),  # добавляем!
-        path("admin/", custom_admin_site.urls),
+    path("admin/", custom_admin_site.urls),
     path('admin/batteries/', core_views.battery_list, name='battery_list'),
     path('', include('core.urls')),
 ]
-
-

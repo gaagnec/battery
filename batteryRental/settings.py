@@ -25,9 +25,12 @@ SECRET_KEY = 'django-insecure-(ag__f&1$tiq+o%41l=u=0it_+1%7o0t@f(t-b9-eqll2njv1#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-ADMIN_TOOLS_MENU = 'core.menu.CustomMenu'
+# CSRF settings
+CSRF_TRUSTED_ORIGINS = ['https://work-1-dzwftwzxzicnzcmg.prod-runtime.all-hands.dev', 'https://work-2-dzwftwzxzicnzcmg.prod-runtime.all-hands.dev']
+
+# ADMIN_TOOLS_MENU = 'core.menu.CustomMenu'  # Commented out as we're not using admin_tools
 # Application definition
 
 INSTALLED_APPS = [
@@ -142,7 +145,8 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
         {"name": "Главная", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Список клиентов", "url": "/clients/", "permissions": ["core.view_client"]},
-  {"name": "Батареи", "url": "/batteries/", "permissions": ["core.view_battery"]},
+        {"name": "Батареи", "url": "/batteries/", "permissions": ["core.view_battery"]},
+        {"name": "Клиенты3", "url": "/admin/clients3/", "permissions": ["core.view_client"]},
     ],
 
     "show_sidebar": True,
@@ -159,6 +163,11 @@ JAZZMIN_SETTINGS = {
                 "name": "Договоры аренды",
                 "url": "/admin/rentalagreements/",
                 "icon": "fas fa-file-signature",
+            },
+            {
+                "name": "Клиенты3",
+                "url": "/admin/clients3/",
+                "icon": "fas fa-users",
             },
         ]
     }
