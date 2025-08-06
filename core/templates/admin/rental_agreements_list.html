@@ -62,6 +62,8 @@
                     <a href="?{% if status_filter %}status={{ status_filter }}&{% endif %}o=status">Статус</a>
                 {% endif %}
             </th>
+            <th>Сумма платежей (количество)</th>
+
             <th>Действия</th>
         </tr>
     </thead>
@@ -70,6 +72,8 @@
         <tr class="{% cycle 'row1' 'row2' %}">
             <td>{{ agreement.client_name }}</td>
             <td>{{ agreement.start_date }}</td>
+                <td>{{ agreement.total_payments }} ({{ agreement.payment_count }})</td>
+
             <td>{% if agreement.end_date %}{{ agreement.end_date }}{% else %}&mdash;{% endif %}</td>
           <td>{{ agreement.days }}</td>
 
